@@ -12,19 +12,20 @@ const client = new OpenAI({
 });
 
 
-const response = await client.chat.completions.create({
+export async function runAtendente(userInput) {
+  const response = await client.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
-        {
-            role: "system",
-            content: systemMessageAtendente,
-        },
-        {
-            role: "user",
-            content: "detalhe esse nike air max 90" 
-        }
+      {
+        role: "system",
+        content: systemMessageAtendente,
+      },
+      {
+        role: "user",
+        content: userInput,
+      },
     ],
     store: true,
-});
-
-console.log(response.choices[0].message.content);
+  });
+  return response.choices[0].message.content;
+}
